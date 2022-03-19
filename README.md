@@ -1,4 +1,4 @@
-# rickandmorty graphql api 
+# rickandmorty graphql api implementation
 - Using GraphQL to fetch characters based on name
 
 - Run the app by executing in terminal
