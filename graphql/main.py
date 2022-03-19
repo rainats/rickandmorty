@@ -4,9 +4,9 @@ from ariadne.asgi import GraphQL
 import json
 
 # loading json data
-fileObject = open("data.json", "r")
-jsonContent = fileObject.read()
-characterslist = json.loads(jsonContent)
+file_object = open("data.json", "r")
+json_content = file_object.read()
+characters_list = json.loads(json_content)
 
 # loading graphql schema
 type_defs = load_schema_from_path("schema.gql")
@@ -14,11 +14,11 @@ type_defs = load_schema_from_path("schema.gql")
 
 async def get_characters(name: str):
     """
-    Method to fetch character details based on name
+    | Method to filter character details from characters_list based on name
     """
     try:
         info = dict()
-        results = [char for char in characterslist if name.lower()
+        results = [char for char in characters_list if name.lower()
                    in str(char["name"]).lower()]
         count = len(results)if results else 0
         info["count"] = count
@@ -31,7 +31,7 @@ async def get_characters(name: str):
 
 async def resolve_characters(_, info, name: str):
     """
-    Resolver method for finding characters based on name
+    | Resolver method for querying characters based on name
     """
     character = await get_characters(name=name)
     if character["info"]["count"] == 0:
@@ -43,5 +43,6 @@ async def resolve_characters(_, info, name: str):
 query = QueryType()
 query.set_field("characters", resolve_characters)
 
+# Making the schema executable by adding the type definitions and resolvers for query fields
 schema = make_executable_schema(type_defs, query)
 app = GraphQL(schema, debug=True)
