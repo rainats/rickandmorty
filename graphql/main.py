@@ -1,12 +1,11 @@
 from ariadne import QueryType, make_executable_schema, load_schema_from_path
 from ariadne.asgi import GraphQL
-
+import uvicorn
 import json
 
-# loading json data
+# loading characters data
 file_object = open("data.json", "r")
-json_content = file_object.read()
-characters_list = json.loads(json_content)
+CHARACTERS_DATA = json.loads(file_object.read())
 
 # loading graphql schema
 type_defs = load_schema_from_path("schema.gql")
@@ -18,7 +17,7 @@ async def get_characters(name: str):
     """
     try:
         info = dict()
-        results = [char for char in characters_list if name.lower()
+        results = [char for char in CHARACTERS_DATA if name.lower()
                    in str(char["name"]).lower()]
         count = len(results)if results else 0
         info["count"] = count
@@ -46,3 +45,7 @@ query.set_field("characters", resolve_characters)
 # Making the schema executable by adding the type definitions and resolvers for query fields
 schema = make_executable_schema(type_defs, query)
 app = GraphQL(schema, debug=True)
+
+if __name__ == "__main__":
+    # starting web server
+    uvicorn.run("main:app", port=8000, reload=True,  host='localhost')
