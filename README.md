@@ -12,4 +12,4 @@ Using GraphQL to fetch characters based on name
 - Run the app by executing in terminal from inside graphql folder
 **"python main.py"**
 
-- Graphql endpoint would be at http://localhost:8000/graphql which can be used to query characters by name
+- Graphql API endpoint would be at http://localhost:8000/graphql which can be used to query characters by name
