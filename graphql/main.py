@@ -1,5 +1,6 @@
 from ariadne import QueryType, make_executable_schema, load_schema_from_path
 from ariadne.asgi import GraphQL
+from fastapi import FastAPI
 import uvicorn
 import json
 
@@ -44,8 +45,10 @@ query.set_field("characters", resolve_characters)
 
 # Making the schema executable by adding the type definitions and resolvers for query fields
 schema = make_executable_schema(type_defs, query)
-app = GraphQL(schema, debug=True)
 
+app = FastAPI()
+app.mount("/graphql", GraphQL(schema, debug=True))
+
+# starting web server
 if __name__ == "__main__":
-    # starting web server
     uvicorn.run("main:app", port=8000, reload=True,  host='localhost')
