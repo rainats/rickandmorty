@@ -3,8 +3,9 @@ Using GraphQL to fetch characters based on name
 
 **Installation Requirements**
 
-Ariadne - *pip install ariadne*
-FastAPI - *pip install fastapi*
+- Ariadne - *pip install ariadne*
+
+- FastAPI - *pip install fastapi*
 
 **Execution**
 
