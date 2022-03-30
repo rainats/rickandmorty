@@ -4,11 +4,11 @@ from fastapi import FastAPI
 import uvicorn
 import json
 
-# loading characters data
+# loading characters data from json file
 file_object = open("data.json", "r")
 CHARACTERS_DATA = json.loads(file_object.read())
 
-# loading graphql schema
+# loading graphql schema from gql file
 type_defs = load_schema_from_path("schema.gql")
 
 
@@ -18,8 +18,8 @@ async def get_characters(name: str):
     """
     try:
         info = dict()
-        results = [char for char in CHARACTERS_DATA if name.lower()
-                   in str(char["name"]).lower()]
+        results = [character for character in CHARACTERS_DATA if name.lower()
+                   in str(character.get("name")).lower()]
         count = len(results)if results else 0
         info["count"] = count
         characters = {"info": info, "results": results}
