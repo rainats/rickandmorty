@@ -19,8 +19,8 @@ async def get_characters(name: str):
     """
     try:
         info = {}
-        results = [character for character in CHARACTERS_DATA if name.lower() in str(
-            character.get("name")).lower()]
+        results = [character for character in CHARACTERS_DATA if name.lower() in
+                   str(character.get("name")).lower()]
         count = len(results) if results else 0
         info["count"] = count
         characters = {"info": info, "results": results}
