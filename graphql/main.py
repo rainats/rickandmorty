@@ -14,12 +14,13 @@ type_defs = load_schema_from_path("schema.gql")
 
 async def get_characters(name: str):
     """
-    | Method to filter character details from characters_list based on name
+    | Method to filter character details from 
+    | CHARACTERS_DATA based on name
     """
     try:
         info = {}
-        results = [character for character in CHARACTERS_DATA if name.lower()
-                   in str(character.get("name")).lower()]
+        results = [character for character in CHARACTERS_DATA if name.lower() in str(
+            character.get("name")).lower()]
         count = len(results) if results else 0
         info["count"] = count
         characters = {"info": info, "results": results}
@@ -43,7 +44,8 @@ async def resolve_characters(_, info, name: str):
 query = QueryType()
 query.set_field("characters", resolve_characters)
 
-# Making the schema executable by adding the type definitions and resolvers for query fields
+# Making the schema executable by adding the type
+# definitions and resolvers for query fields
 schema = make_executable_schema(type_defs, query)
 
 app = FastAPI()
