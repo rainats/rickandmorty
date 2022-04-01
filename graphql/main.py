@@ -17,10 +17,10 @@ async def get_characters(name: str):
     | Method to filter character details from characters_list based on name
     """
     try:
-        info = dict()
+        info = {}
         results = [character for character in CHARACTERS_DATA if name.lower()
                    in str(character.get("name")).lower()]
-        count = len(results)if results else 0
+        count = len(results) if results else 0
         info["count"] = count
         characters = {"info": info, "results": results}
         return characters
