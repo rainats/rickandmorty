@@ -35,9 +35,6 @@ input FilterCharacter {
 
 type Info {
   count: Int
-#   pages: Int
-#   next: Int
-#   prev: Int
 }
 
 type Location {
